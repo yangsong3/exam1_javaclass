@@ -12,6 +12,7 @@ class Main {
         aMap.remove("영희나이");
         System.out.println(aMap);
 
+        System.out.println("수정함");
     }
 }
 // CRUD
