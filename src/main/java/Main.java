@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 class Main {
@@ -9,7 +11,9 @@ class Main {
 
         int lastNo = 0;
 
-        HashMap<String, String> articles = new HashMap<>();
+        List<Integer> articleNum = new ArrayList<>();
+        List<String> articleTitle = new ArrayList<>();
+        List<String> articleContents = new ArrayList<>();
 
         while (true) {
             System.out.printf("command: ");
@@ -23,22 +27,29 @@ class Main {
             if (command.equals("exit")) {
                 break;
             } else if (command.equals("article list")) {
-                System.out.println("게시글이 없습니다.");
+                if (articleNum.isEmpty()) {
+                    System.out.println("게시글이 없습니다.");
+                } else {
+                    System.out.println("번호 제목   내용");
+                    for (int i = 0; i < articleNum.size(); i++) {
+                        System.out.printf("%s %s %s\n", articleNum.get(i), articleTitle.get(i), articleContents.get(i));
+                    }
+                }
 
             } else if (command.equals("article write")) {
                 int no = lastNo + 1;
                 System.out.print("Title: ");
                 String title = sc.nextLine();
+                articleTitle.add(title);
+
                 System.out.print("Contents: ");
                 String contents = sc.nextLine();
-                articles.put(title, contents);
+                articleContents.add(contents);
+
+                articleNum.add(no);
 
                 System.out.printf("%d번 글이 생성되었습니다.\n", no);
                 lastNo = no;
-            } else if (command.equals("article view")) {
-                String content = sc.nextLine();
-
-                System.out.println(articles.get(content));
             } else {
                 System.out.printf("%s (은)는 존재하지 않는 명령어입니다.\n", command);
             }
@@ -47,3 +58,4 @@ class Main {
         System.out.println("==Program End==");
     }
 }
+
