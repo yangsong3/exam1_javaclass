@@ -97,6 +97,36 @@ class Main {
                 articles.remove(foundIndex);
                 System.out.printf("%d번 게시물이 삭제되었습니다.\n", id);
 
+            } else if (command.startsWith("article modify ")) {
+                String[] commandBits = command.split(" ", 3);
+                int id = Integer.parseInt(commandBits[2]);
+
+                Article foundArticle = null;
+                int foundIndex = -1;
+
+                for (int i = 0; i < articles.size(); i++) {
+                    Article article = articles.get(i);
+                    if (article.id == id) {
+                        foundArticle = article;
+                        foundIndex = i;
+                        break;
+                    }
+                }
+
+                if (foundArticle == null) {
+                    System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
+                    continue;
+                }
+
+                System.out.printf("제목 : ");
+                String title = sc.nextLine();
+                System.out.printf("내용 : ");
+                String body = sc.nextLine();
+
+                Article article = new Article(id, title, body);
+
+                articles.set(foundIndex, article);
+
             } else {
                 System.out.printf("%s(은)는 존재하지 않는 명령어 입니다.\n", command);
             }
@@ -126,6 +156,4 @@ class Article {
         this.nowTime = nowTime;
 
     }
-
-
 }
