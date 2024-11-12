@@ -102,13 +102,11 @@ class Main {
                 int id = Integer.parseInt(commandBits[2]);
 
                 Article foundArticle = null;
-                int foundIndex = -1;
 
                 for (int i = 0; i < articles.size(); i++) {
                     Article article = articles.get(i);
                     if (article.id == id) {
                         foundArticle = article;
-                        foundIndex = i;
                         break;
                     }
                 }
@@ -123,9 +121,10 @@ class Main {
                 System.out.printf("내용 : ");
                 String body = sc.nextLine();
 
-                Article article = new Article(id, title, body);
+                foundArticle.title = title;
+                foundArticle.body = body;
 
-                articles.set(foundIndex, article);
+                System.out.printf("%d번 게시물이 수정되었습니다.\n",id);
 
             } else {
                 System.out.printf("%s(은)는 존재하지 않는 명령어 입니다.\n", command);
