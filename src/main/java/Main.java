@@ -1,18 +1,19 @@
-import java.text.SimpleDateFormat;
+import dto.Article;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 class Main {
+    static List<Article> articles = new ArrayList<>();
+    static int lastArticleId = 0;
+
     public static void main(String[] args) {
         System.out.println("== 프로그램 시작 ==");
 
+        makeTestData();
+
         Scanner sc = new Scanner(System.in);
-
-        int lastArticleId = 0;
-
-        List<Article> articles = new ArrayList<>();
 
         while (true) {
             System.out.printf("명령어) ");
@@ -35,7 +36,7 @@ class Main {
                 for (int i = 0; i < articles.size(); i++) {
                     Article article = articles.get(i);
 
-                    System.out.printf("%d, %s\n", article.id, article.title);
+                    System.out.printf("%d, %s %s\n", article.id, article.title, article.body);
 
                 }
             } else if (command.equals("article write")) {
@@ -135,24 +136,22 @@ class Main {
         sc.close();
         System.out.println("== 프로그램 끝 ==");
     }
-}
 
-class Article {
-    int id;
-    String title;
-    String body;
-    String nowTime;
+    public static Article makeTestData() {
+        int id = lastArticleId + 1;
+        String title = "test";
+        String body = "test";
 
-    public Article(int id, String title, String body) {
-        this.id = id;
-        this.title = title;
-        this.body = body;
+        for (int i = 0; i < 3; i++) {
+            Article article = new Article(id, title, body);
+            article.id = id;
+            article.title = title;
+            article.body = body;
 
-        Date now = new Date();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String nowTime = sdf.format(now);
-        this.nowTime = nowTime;
-
+            articles.add(article);
+            lastArticleId = id;
+            id++;
+        }
+        return null;
     }
 }
